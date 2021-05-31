@@ -15,11 +15,11 @@ const database = [
   { id: 6, productName: "acilock", price: 20, pcs: 20 , imgPath:"/static/image/demo.jpg"},
 ];
 
-app.use("/static", express.static(path.join(__dirname, "static")));
+// app.use("/static", express.static(path.join(__dirname, "static")));
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "/index.html"));
-});
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname, "/index.html"));
+// });
 
 app.get("/api/product", (req, res) => {
   res.send(database);
