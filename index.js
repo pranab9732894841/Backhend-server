@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
 
+// npm i cors --- comand run fast
 app.use(cors());
 
 const database = [
