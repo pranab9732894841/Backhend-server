@@ -3,18 +3,12 @@ const app = express();
 const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 5000;
-
-// npm i cors --- comand run fast
+const { mongoose } = require("./db");
+const bodyParser = require("body-parser");
+const {Product} = require('./product')
 app.use(cors());
 
-const database = [
-  { id: 1, productName: "paracitamal", price: 200, pcs: 10 , imgPath:"/static/image/demo.jpg"},
-  { id: 2, productName: "acilock", price: 20, pcs: 20, imgPath:"/static/image/demo2.jpg" },
-  { id: 3, productName: "saidon", price: 15, pcs: 10 , imgPath:"/static/image/demo.jpg"},
-  { id: 4, productName: "abcd", price: 200, pcs: 1 , imgPath:"/static/image/demo2.jpg"},
-  { id: 5, productName: "paracitamal", price: 20, pcs: 10 , imgPath:"/static/image/demo2.jpg"},
-  { id: 6, productName: "acilock", price: 20, pcs: 20 , imgPath:"/static/image/demo.jpg"},
-];
+
 
 app.use("/static", express.static(path.join(__dirname, "static")));
 
@@ -23,7 +17,26 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/product", (req, res) => {
-  res.send(database);
+  console.log(Product)
+  res.send(JSON.stringify(Product)  );
+});
+
+app.post("/api/product", (req, res) => {
+  let prod = new Product({
+    productName: req.body.productName,
+    price: req.body.price,
+    pcs: req.body.pcs,
+    age: req.body.age,
+    imgPath: req.body.imgPath
+  });
+  prod.save((err, doc) => {
+    if (err)
+      console.log(
+        "error in saving customers..." + JSON
+         .stringify(err, undefined, 2)
+      );
+    else resp.send(doc);
+  });
 });
 
 app.listen(port, () => {
